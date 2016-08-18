@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9pv-A4-QxB">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Devour-->
+        <scene sceneID="hNz-n2-bh7">
+            <objects>
+                <viewController id="9pv-A4-QxB" userLabel="Devour" customClass="DevourCollectionViewController" customModule="Devour" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="9Wz-tL-mVt">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PaS-Hb-uLW">
+                            <size key="itemSize" width="1916" height="680"/>
+                            <size key="headerReferenceSize" width="1080" height="180"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoSetCollectionViewCell" id="O0F-s2-dRc" customClass="VideoSetCollectionViewCell" customModule="Devour" customModuleProvider="target">
+                                <rect key="frame" x="2" y="180" width="1916" height="680"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="1916" height="680"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbw-If-eJH">
+                                            <rect key="frame" x="90" y="23" width="1736" height="86"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="72"/>
+                                            <color key="textColor" red="0.90588235289999997" green="0.1019607843" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zh9-Le-Fvx">
+                                            <rect key="frame" x="0.0" y="61" width="1912" height="610"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="610" id="L8d-6X-863"/>
+                                            </constraints>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b0P-Il-Gmg">
+                                                <size key="itemSize" width="680" height="514"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="56" minY="0.0" maxX="110" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCollectionViewCell" id="M5z-Ns-Jpe" customClass="VideoCollectionViewCell" customModule="Devour" customModuleProvider="target">
+                                                    <rect key="frame" x="56" y="48" width="680" height="514"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="680" height="514"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZU3-ga-cIz">
+                                                                <rect key="frame" x="40" y="40" width="600" height="434"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </imageView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tQX-EK-pI1">
+                                                                <rect key="frame" x="40" y="205" width="600" height="104"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8S-D7-DWX">
+                                                                        <rect key="frame" x="253" y="0.0" width="94" height="58"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFX-Ue-2bK">
+                                                                        <rect key="frame" x="258" y="74" width="85" height="30"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstItem="tQX-EK-pI1" firstAttribute="trailing" secondItem="ZU3-ga-cIz" secondAttribute="trailing" id="3zB-9T-cVB"/>
+                                                        <constraint firstItem="ZU3-ga-cIz" firstAttribute="top" secondItem="M5z-Ns-Jpe" secondAttribute="topMargin" constant="32" id="6Ee-sH-zD7"/>
+                                                        <constraint firstItem="tQX-EK-pI1" firstAttribute="leading" secondItem="ZU3-ga-cIz" secondAttribute="leading" id="8T8-in-N81"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="ZU3-ga-cIz" secondAttribute="trailing" constant="32" id="J6Q-8h-KIP"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="ZU3-ga-cIz" secondAttribute="bottom" constant="32" id="Lpg-03-06x"/>
+                                                        <constraint firstItem="ZU3-ga-cIz" firstAttribute="leading" secondItem="M5z-Ns-Jpe" secondAttribute="leadingMargin" constant="32" id="OR1-ek-KaB"/>
+                                                        <constraint firstItem="tQX-EK-pI1" firstAttribute="centerY" secondItem="ZU3-ga-cIz" secondAttribute="centerY" id="Xrn-HM-jBp"/>
+                                                        <constraint firstItem="tQX-EK-pI1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZU3-ga-cIz" secondAttribute="top" id="sBa-yg-1pg"/>
+                                                        <constraint firstItem="tQX-EK-pI1" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="ZU3-ga-cIz" secondAttribute="bottom" id="wUd-me-KhD"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="imageView" destination="ZU3-ga-cIz" id="hx8-wx-6Lb"/>
+                                                        <outlet property="subtitle" destination="MFX-Ue-2bK" id="crA-As-Pqe"/>
+                                                        <outlet property="title" destination="E8S-D7-DWX" id="aVG-f8-PMq"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                            <connections>
+                                                <outlet property="dataSource" destination="O0F-s2-dRc" id="ggh-1M-hhk"/>
+                                                <outlet property="delegate" destination="O0F-s2-dRc" id="O7g-Nb-3m3"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="vbw-If-eJH" firstAttribute="leading" secondItem="O0F-s2-dRc" secondAttribute="leadingMargin" constant="82" id="JV0-qb-j6r"/>
+                                    <constraint firstItem="vbw-If-eJH" firstAttribute="top" secondItem="O0F-s2-dRc" secondAttribute="topMargin" constant="15" id="Yat-mo-qst"/>
+                                    <constraint firstItem="zh9-Le-Fvx" firstAttribute="leading" secondItem="O0F-s2-dRc" secondAttribute="leading" id="g9N-yW-3vm"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="vbw-If-eJH" secondAttribute="trailing" constant="82" id="rot-Qr-8TM"/>
+                                    <constraint firstAttribute="trailing" secondItem="zh9-Le-Fvx" secondAttribute="trailing" constant="4" id="s9Z-CB-Mq8"/>
+                                    <constraint firstItem="zh9-Le-Fvx" firstAttribute="top" secondItem="vbw-If-eJH" secondAttribute="bottom" constant="-48" id="yyp-4Z-s1z"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="collectionView" destination="zh9-Le-Fvx" id="ztx-PJ-9W2"/>
+                                    <outlet property="hostViewController" destination="9pv-A4-QxB" id="SgP-Uv-1wk"/>
+                                    <outlet property="titleLabel" destination="vbw-If-eJH" id="50N-J3-11j"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="Ap1-me-xpQ">
+                            <rect key="frame" x="0.0" y="0.0" width="1920" height="180"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Devour-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="fed-Gl-k1c">
+                                    <rect key="frame" x="717" y="25" width="487" height="147"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="487" id="IZ9-TU-XUd"/>
+                                        <constraint firstAttribute="height" constant="147" id="k24-CK-Zj0"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="fed-Gl-k1c" firstAttribute="centerX" secondItem="Ap1-me-xpQ" secondAttribute="centerX" id="Bwh-F1-HlR"/>
+                                <constraint firstItem="fed-Gl-k1c" firstAttribute="top" secondItem="Ap1-me-xpQ" secondAttribute="topMargin" constant="17" id="GZy-1p-bFN"/>
+                                <constraint firstItem="fed-Gl-k1c" firstAttribute="bottom" secondItem="Ap1-me-xpQ" secondAttribute="bottomMargin" id="huq-Oc-ofN"/>
+                            </constraints>
+                        </collectionReusableView>
+                        <connections>
+                            <outlet property="dataSource" destination="9pv-A4-QxB" id="gOc-D6-ewU"/>
+                            <outlet property="delegate" destination="9pv-A4-QxB" id="ybv-1S-wNK"/>
+                        </connections>
+                    </collectionView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2152" y="-622"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Devour-Icon" width="1031" height="235"/>
+    </resources>
+</document>
