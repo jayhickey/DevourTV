@@ -30,13 +30,7 @@ class DevourVideoSetEmitter: NSObject, VideoSetEmitter {
         updateBlock = callback
     }
     
-    var videos:[DevourVideo] = [] {
-        didSet {
-            updateBlock?(videos: videos)
-        }
-    }
-    
-    func videoAtIndexPath(index: NSIndexPath) -> DevourVideo {
+    func videoAtIndexPath(index: NSIndexPath) -> Video {
         return videos[index.row]
     }
     
@@ -46,8 +40,19 @@ class DevourVideoSetEmitter: NSObject, VideoSetEmitter {
     
     func getVideos() {
         fetchDevourVideos(videoType, page: page) { newVideos in
-            self.videos = self.videos + newVideos
+            self.videos.appendContentsOf(newVideos.map { $0 as Video })
         }
         page += 1
+    }
+    
+    func reset() {
+        self.videos = []
+        page = 1
+    }
+    
+    private var videos:[Video] = [] {
+        didSet {
+            updateBlock?(videos: videos)
+        }
     }
 }

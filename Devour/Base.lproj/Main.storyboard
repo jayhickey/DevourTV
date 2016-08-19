@@ -127,10 +127,21 @@
                                         <constraint firstAttribute="height" constant="147" id="k24-CK-Zj0"/>
                                     </constraints>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bF-HH-z5X">
+                                    <rect key="frame" x="1675" y="47" width="198" height="86"/>
+                                    <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                    <state key="normal" title="Reload"/>
+                                    <connections>
+                                        <action selector="reload:" destination="9pv-A4-QxB" eventType="primaryActionTriggered" id="W7G-pK-3xw"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="4bF-HH-z5X" firstAttribute="top" secondItem="Ap1-me-xpQ" secondAttribute="topMargin" constant="39" id="175-T4-kpH"/>
                                 <constraint firstItem="fed-Gl-k1c" firstAttribute="centerX" secondItem="Ap1-me-xpQ" secondAttribute="centerX" id="Bwh-F1-HlR"/>
                                 <constraint firstItem="fed-Gl-k1c" firstAttribute="top" secondItem="Ap1-me-xpQ" secondAttribute="topMargin" constant="17" id="GZy-1p-bFN"/>
+                                <constraint firstAttribute="bottomMargin" secondItem="4bF-HH-z5X" secondAttribute="bottom" constant="39" id="aGE-Yz-qwN"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="4bF-HH-z5X" secondAttribute="trailing" constant="39" id="bB0-Y1-P5V"/>
                                 <constraint firstItem="fed-Gl-k1c" firstAttribute="bottom" secondItem="Ap1-me-xpQ" secondAttribute="bottomMargin" id="huq-Oc-ofN"/>
                             </constraints>
                         </collectionReusableView>
@@ -142,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2152" y="-622"/>
+            <point key="canvasLocation" x="2096" y="-636"/>
         </scene>
     </scenes>
     <resources>

@@ -33,6 +33,10 @@ class DevourCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     // MARK: Private
+    
+    @IBAction func reload(sender: UIButton!) {
+        _ = emitters.map { $0.reset(); $0.getVideos() }
+    }
 
     private func playVideo(video: Video) {
         let youtubeVideos = videos(video.videoID)
