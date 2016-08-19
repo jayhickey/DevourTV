@@ -50,9 +50,6 @@ class VideoCollectionViewCell: UICollectionViewCell {
                 self.imageView.image = cachedImage
             });
         }
-        else {
-            
-        }
     }
     
     func loadImage() {
