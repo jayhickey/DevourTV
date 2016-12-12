@@ -8,14 +8,14 @@
 
 import Foundation
 
-typealias EmitterUpdateCallback = ((videos: [Video]) -> ())
+typealias EmitterUpdateCallback = ((_ videos: [Video]) -> ())
 
 protocol VideoSetEmitter {
     var title: String { get }
     var numberOfVideos: Int { get }
     
-    func videoAtIndexPath(index: NSIndexPath) -> Video
+    func videoAtIndexPath(_ index: IndexPath) -> Video
     func getVideos()
-    func onUpdate( callback: EmitterUpdateCallback )
+    func onUpdate( _ callback: @escaping EmitterUpdateCallback )
     func reset()
 }

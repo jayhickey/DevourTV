@@ -10,23 +10,23 @@ import UIKit
 
 public extension UIViewController {
 
-    func playVideo(url: NSURL) {
-        self.presentViewController(VideoViewController(url: url), animated: true, completion: nil)
+    func playVideo(_ url: URL) {
+        self.present(VideoViewController(url: url), animated: true, completion: nil)
     }
     
-    func videoQualityAlertController(options: [String], success: (String -> Void), cancel: (Void -> Void)) -> UIAlertController {
-        let alertController = UIAlertController(title: "Choose Quality", message: nil, preferredStyle: .Alert)
+    func videoQualityAlertController(_ options: [String], success: @escaping ((String) -> Void), cancel: @escaping ((Void) -> Void)) -> UIAlertController {
+        let alertController = UIAlertController(title: "Choose Quality", message: nil, preferredStyle: .alert)
         
         for option in options {
-            let action = UIAlertAction(title: option.capitalizedString, style: .Default, handler: { (action) in
+            let action = UIAlertAction(title: option.capitalized, style: .default, handler: { (action) in
                 if let title = action.title {
-                    success(title.lowercaseString)
+                    success(title.lowercased())
                 }
             })
             alertController.addAction(action)
         }
         
-        let action = UIAlertAction(title: "Cancel", style: .Destructive, handler: { (action) in
+        let action = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) in
             cancel()
         })
         alertController.addAction(action)

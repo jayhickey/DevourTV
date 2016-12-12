@@ -13,8 +13,8 @@ class VideoSetCollectionViewCell: UICollectionViewCell, UICollectionViewDataSour
     
     static let reuseIdentifier = "VideoSetCollectionViewCell"
     
-    private var emitter: VideoSetEmitter?
-    func configureWithEmitter(emitter:VideoSetEmitter) {
+    fileprivate var emitter: VideoSetEmitter?
+    func configureWithEmitter(_ emitter:VideoSetEmitter) {
         self.emitter = nil
         collectionView.reloadData()
         
@@ -22,26 +22,23 @@ class VideoSetCollectionViewCell: UICollectionViewCell, UICollectionViewDataSour
         self.titleLabel.text = emitter.title
         
         emitter.onUpdate { videos in
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.titleLabel.text = emitter.title
                 
                 let collectionView = self.collectionView
                 
-                let previousVideoCount = collectionView.numberOfItemsInSection(0)
-                if previousVideoCount > videos.count || previousVideoCount == 0 {
-                    collectionView.reloadData()
+                guard let previousVideoCount = collectionView?.numberOfItems(inSection: 0) else { return }
+                
+                if previousVideoCount > videos.count ||
+                    previousVideoCount == 0 ||
+                    self.hostViewController.scrolling == true { // Problems occur when scrolling and appending, so don't allow it{
+                    collectionView?.reloadData()
                     return
                 }
                 
-                // Problems occur when scrolling and appending, so don't allow it
-                if self.hostViewController.scrolling {
-                    collectionView.reloadData()
-                    return
-                }
-                
-                collectionView.performBatchUpdates({
-                    let paths = (previousVideoCount ..< videos.count).map { NSIndexPath(forRow: $0, inSection: 0) }
-                    if paths.count != 0 { self.collectionView.insertItemsAtIndexPaths(paths) }
+                collectionView?.performBatchUpdates({
+                    let paths = (previousVideoCount ..< videos.count).map { IndexPath(row: $0, section: 0) }
+                    if paths.count != 0 { self.collectionView.insertItems(at: paths) }
                     },
                     completion: nil)
             });
@@ -49,8 +46,8 @@ class VideoSetCollectionViewCell: UICollectionViewCell, UICollectionViewDataSour
     }
     
     func loadImagesForOnScreenRows() {
-        _ = self.collectionView.indexPathsForVisibleItems().map({ (indexPath) -> Void in
-             guard let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as? VideoCollectionViewCell else { fatalError("Expected to display a `VideoCollectionViewCell`.") }
+        _ = self.collectionView.indexPathsForVisibleItems.map({ (indexPath) -> Void in
+             guard let cell = self.collectionView.cellForItem(at: indexPath) as? VideoCollectionViewCell else { fatalError("Expected to display a `VideoCollectionViewCell`.") }
             cell.loadImage()
         })
     }
@@ -65,25 +62,25 @@ class VideoSetCollectionViewCell: UICollectionViewCell, UICollectionViewDataSour
         return collectionView
     }
     
-    func collectionView(collectionView: UICollectionView, didUpdateFocusInContext context: UICollectionViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        if let emitter = emitter, indexPath = context.nextFocusedIndexPath where (indexPath.row == self.collectionView.numberOfItemsInSection(0) - 1) {
+    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        if let emitter = emitter, let indexPath = context.nextFocusedIndexPath, (indexPath.row == self.collectionView.numberOfItems(inSection: 0) - 1) {
             emitter.getVideos()
         }
     }
     
     // MARK: UICollectionViewDataSource
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let emitter = emitter else { return 0 }
         return emitter.numberOfVideos
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCellWithReuseIdentifier(VideoCollectionViewCell.reuseIdentifier, forIndexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: VideoCollectionViewCell.reuseIdentifier, for: indexPath)
     }
     
     // MARK: UICollectionViewDelegate
@@ -92,32 +89,32 @@ class VideoSetCollectionViewCell: UICollectionViewCell, UICollectionViewDataSour
     
     @IBOutlet var hostViewController: DevourCollectionViewController!
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let emitter = emitter else { return }
         let video = emitter.videoAtIndexPath(indexPath)
         hostViewController.videoSelected(video)
     }
     
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? VideoCollectionViewCell else { fatalError("Expected to display a VideoCollectionViewCell") }
         guard let emitter = emitter else { return }
         
         let video = emitter.videoAtIndexPath(indexPath)
         cell.configureWithVideo(video)
-        if self.collectionView.dragging == false && self.collectionView.decelerating == false {
+        if self.collectionView.isDragging == false && self.collectionView.isDecelerating == false {
             cell.loadImage()
         }
     }
     
     // MARK: UIScrollViewDelegate
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate == false {
             self.loadImagesForOnScreenRows()
         }
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.loadImagesForOnScreenRows()
     }
     

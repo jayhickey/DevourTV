@@ -11,8 +11,8 @@ protocol Video {
     var summary      : String { get }
     var videoID      : String { get }
     
-    var URL          : NSURL { get }
-    var thumbnailURL : NSURL { get }
+    var URL          : Foundation.URL { get }
+    var thumbnailURL : Foundation.URL { get }
     
     var videoSource  : VideoSource { get }
 }

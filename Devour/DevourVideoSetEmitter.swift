@@ -26,11 +26,11 @@ class DevourVideoSetEmitter: NSObject, VideoSetEmitter {
     }
     
     var updateBlock: EmitterUpdateCallback?
-    func onUpdate( callback: EmitterUpdateCallback ) {
+    func onUpdate( _ callback: @escaping EmitterUpdateCallback ) {
         updateBlock = callback
     }
     
-    func videoAtIndexPath(index: NSIndexPath) -> Video {
+    func videoAtIndexPath(_ index: IndexPath) -> Video {
         return videos[index.row]
     }
     
@@ -39,8 +39,8 @@ class DevourVideoSetEmitter: NSObject, VideoSetEmitter {
     }
     
     func getVideos() {
-        fetchDevourVideos(videoType, page: page) { newVideos in
-            self.videos.appendContentsOf(newVideos.map { $0 as Video })
+        fetchDevourVideos(type: videoType, page: page) { newVideos in
+            self.videos.append(contentsOf: newVideos.map { $0 as Video })
         }
         page += 1
     }
@@ -50,9 +50,9 @@ class DevourVideoSetEmitter: NSObject, VideoSetEmitter {
         page = 1
     }
     
-    private var videos:[Video] = [] {
+    fileprivate var videos:[Video] = [] {
         didSet {
-            updateBlock?(videos: videos)
+            updateBlock?(videos)
         }
     }
 }

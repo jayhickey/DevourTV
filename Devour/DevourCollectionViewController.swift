@@ -11,11 +11,13 @@ import AVFoundation
 
 class DevourCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    private var emitters:[VideoSetEmitter]!
+    @IBOutlet fileprivate var reloadButton : UIButton!
+    
+    fileprivate var emitters:[VideoSetEmitter]!
     
     var scrolling = false
-    var lastOffset = CGPointZero
-    var lastOffsetCapture:NSTimeInterval = 0
+    var lastOffset = CGPoint.zero
+    var lastOffsetCapture:TimeInterval = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,27 +30,31 @@ class DevourCollectionViewController: UICollectionViewController, UICollectionVi
         _ = emitters.map { $0.getVideos() }
     }
     
-    func videoSelected(video: Video) {
+    func videoSelected(_ video: Video) {
         playVideo(video)
+    }
+    
+    func reload() {
+        _ = emitters.map { $0.reset(); $0.getVideos() }
     }
     
     // MARK: Private
     
-    @IBAction func reload(sender: UIButton!) {
-        _ = emitters.map { $0.reset(); $0.getVideos() }
+    @IBAction fileprivate func reload(_ sender: UIButton!) {
+        reload()
     }
 
-    private func playVideo(video: Video) {
+    fileprivate func playVideo(_ video: Video) {
         let youtubeVideos = videos(video.videoID)
         guard youtubeVideos.count != 0 else {
-            let alertController = UIAlertController(title: "Video Unavailable", message: nil, preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-            self.presentViewController(alertController, animated: true, completion: nil)
+            let alertController = UIAlertController(title: "Video Unavailable", message: nil, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
             return
         }
         
         // Prefer HD
-        if let HDVideo = youtubeVideos.filter({ $0.quality == VideoQuality.HD }).first {
+        if let HDVideo = youtubeVideos.filter({ $0.quality == VideoQuality.hd }).first {
             self.playVideo(HDVideo.URL)
         } else {
             let alertController = videoQualityAlertController(youtubeVideos.map{ $0.qualityString}, success: { qualityString in
@@ -57,9 +63,9 @@ class DevourCollectionViewController: UICollectionViewController, UICollectionVi
                 }
                 
                 }, cancel: {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
             })
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 }
@@ -68,32 +74,32 @@ extension DevourCollectionViewController {
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return emitters.count
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCellWithReuseIdentifier(VideoSetCollectionViewCell.reuseIdentifier, forIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: VideoSetCollectionViewCell.reuseIdentifier, for: indexPath)
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath)
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section != 0  { return CGSizeZero }
-        return CGSizeMake(view.bounds.width, 180)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section != 0  { return CGSize.zero }
+        return CGSize(width: view.bounds.width, height: 180)
     }
     
     // MARK: UICollectionViewDelegate
     
-    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? VideoSetCollectionViewCell else { fatalError("Expected to display a `VideoSetCollectionViewCell`.") }
         
         let emitter = emitters[indexPath.section]
@@ -106,11 +112,11 @@ extension DevourCollectionViewController {
         return 0.5
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         scrolling = true
         
         let currentOffset = scrollView.contentOffset;
-        let currentTime:NSTimeInterval = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime:TimeInterval = Date.timeIntervalSinceReferenceDate
         
         let timeDiff = currentTime - Double(lastOffsetCapture)
         if (timeDiff > 0.1) {
@@ -125,13 +131,13 @@ extension DevourCollectionViewController {
         }
     }
     
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         scrolling = false
     }
     
     // MARK: Focus
     
-    override func collectionView(collectionView: UICollectionView, canFocusItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
         // We don't want this collectionView's cells to become focused.
         // Instead the `UICollectionView` contained in the cell should become focused.
         

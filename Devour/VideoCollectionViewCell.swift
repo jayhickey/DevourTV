@@ -10,13 +10,13 @@ import Foundation
 
 class VideoCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet private var title : UILabel!
-    @IBOutlet private var subtitle : UILabel!
-    @IBOutlet private var imageView : UIImageView!
+    @IBOutlet fileprivate var title : UILabel!
+    @IBOutlet fileprivate var subtitle : UILabel!
+    @IBOutlet fileprivate var imageView : UIImageView!
     
     static let reuseIdentifier = "VideoCollectionViewCell"
     
-    var imageDownloadSession : NSURLSessionDataTask?
+    var imageDownloadSession : URLSessionDataTask?
     var video : Video?
     
     override func prepareForReuse() {
@@ -32,39 +32,39 @@ class VideoCollectionViewCell: UICollectionViewCell {
         self.imageDownloadSession = nil
     }
     
-    override func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
-        if (self.focused) {
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        if (self.isFocused) {
             self.imageView.adjustsImageWhenAncestorFocused = true
         } else {
             self.imageView.adjustsImageWhenAncestorFocused = false
         }
     }
     
-    func configureWithVideo(video: Video) {
+    func configureWithVideo(_ video: Video) {
         self.video = video
         self.title.text = video.title
         self.subtitle.text = video.summary
         
-        if let cachedImage = ImageCache.sharedInstance.objectForKey(video.videoID) as? UIImage {
-            dispatch_async(dispatch_get_main_queue(), {
+        if let cachedImage = ImageCache.sharedInstance.object(forKey: video.videoID as AnyObject) as? UIImage {
+            DispatchQueue.main.async(execute: {
                 self.imageView.image = cachedImage
             });
         }
     }
     
     func loadImage() {
-        guard let thumbnailURL = self.video?.thumbnailURL, videoID = self.video?.videoID where self.imageView.image == nil else {
+        guard let thumbnailURL = self.video?.thumbnailURL, let videoID = self.video?.videoID, self.imageView.image == nil else {
             return
         }
-        imageDownloadSession = NSURLSession.sharedSession().dataTaskWithURL(thumbnailURL) {
+        imageDownloadSession = URLSession.shared.dataTask(with: thumbnailURL, completionHandler: {
             (data, response, error) in
-            if let data = data, image = UIImage(data: data)?.darkened() {
-                ImageCache.sharedInstance.setObject(image, forKey: videoID)
-                dispatch_async(dispatch_get_main_queue(), {
+            if let data = data, let image = UIImage(data: data)?.darkened() {
+                ImageCache.sharedInstance.setObject(image, forKey: videoID as AnyObject)
+                DispatchQueue.main.async(execute: {
                     self.imageView.image = image
                 });
             }
-        }
+        }) 
         imageDownloadSession?.resume()
     }
 }
@@ -78,7 +78,7 @@ extension UIImage {
             filter.setValue(beginImage, forKey: kCIInputImageKey)
             filter.setValue(-1.0, forKey: kCIInputEVKey)
             guard let filteredImage = filter.outputImage else { return self }
-            return UIImage(CGImage: context.createCGImage(filteredImage, fromRect: filteredImage.extent))
+            return UIImage(cgImage: context.createCGImage(filteredImage, from: filteredImage.extent)!)
         }
         return self
     }

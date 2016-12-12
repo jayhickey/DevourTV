@@ -15,12 +15,12 @@ import Foundation
 
 protocol JSONParserType {
     associatedtype T
-    func parseJSON(json: JSON) -> T
+    func parseJSON(_ json: JSON) -> T
 }
 
 struct JSON {
-    let data: NSData
-    init(data: NSData) {
+    let data: Data
+    init(data: Data) {
         self.data = data
     }
 }
@@ -28,16 +28,16 @@ struct JSON {
 struct JSONValidator<T> {
     typealias ValidationClosure = (JSON) -> Bool
     let validator: ValidationClosure
-    init(validator: ValidationClosure) {
+    init(validator: @escaping ValidationClosure) {
         self.validator = validator
     }
-    func isValid(json: JSON) -> Bool {
+    func isValid(_ json: JSON) -> Bool {
         return validator(json)
     }
 }
 
 
-func parse<T, P: JSONParserType where P.T == T>(json: JSON, validator: JSONValidator<T>, parser: P) -> T? {
+func parse<T, P: JSONParserType>(_ json: JSON, validator: JSONValidator<T>, parser: P) -> T? where P.T == T {
     if !validator.isValid(json) {
         return nil
     }

@@ -9,18 +9,18 @@
 import Foundation
 
 public enum VideoSource : Int {
-    case YouTube
-    case Vimeo
-    case Other
+    case youTube
+    case vimeo
+    case other
 }
 
 public struct DevourVideo: Video {
     let id           : Int
-    let date         : NSDate
+    let date         : Date
     let title        : String
     let summary      : String
-    let thumbnailURL : NSURL
-    let URL          : NSURL
+    let thumbnailURL : Foundation.URL
+    let URL          : Foundation.URL
     let videoID      : String
     let videoSource  : VideoSource
 }

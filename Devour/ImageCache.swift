@@ -9,5 +9,5 @@
 import Foundation
 
 class ImageCache {
-    static let sharedInstance = NSCache()
+    static let sharedInstance = NSCache<AnyObject, AnyObject>()
 }

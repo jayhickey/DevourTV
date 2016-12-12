@@ -12,21 +12,21 @@ import AVKit
 
 class VideoViewController: AVPlayerViewController, AVPlayerViewControllerDelegate {
     
-    convenience init(url: NSURL) {
+    convenience init(url: URL) {
         self.init()
         play(url)
     }
     
-    func play(url: NSURL) {
-        player = AVPlayer(URL: url)
+    func play(_ url: URL) {
+        player = AVPlayer(url: url)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(playerDidFinishPlaying),
-                                                         name: AVPlayerItemDidPlayToEndTimeNotification, object: player?.currentItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying),
+                                                         name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
         player?.play()
     }
     
-    func playerDidFinishPlaying(note: NSNotification) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func playerDidFinishPlaying(_ note: Notification) {
+        self.dismiss(animated: true, completion: nil)
     }
 
     

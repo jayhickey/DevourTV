@@ -13,7 +13,7 @@ import Foundation
 let devourVideoValidator = JSONValidator<[DevourVideo]> { (json) -> Bool in
     // validate the json
     do {
-        let jsonSerialized = try NSJSONSerialization.JSONObjectWithData(json.data, options: []) as! NSDictionary
+        let jsonSerialized = try JSONSerialization.jsonObject(with: json.data as Data, options: []) as! NSDictionary
         
         guard let results = jsonSerialized["posts"] as? [AnyObject] else {
             return false
@@ -32,13 +32,13 @@ let devourVideoValidator = JSONValidator<[DevourVideo]> { (json) -> Bool in
             }
             
             for key in urlKeys {
-                guard let result = result[key] as? String where NSURL(string: result) != nil else {
+                guard let result = result[key] as? String, URL(string: result) != nil else {
                     return false
                 }
             }
             
             for key in dateKeys {
-                guard let result = result[key] as? String where formatDate(result) != nil else {
+                guard let result = result[key] as? String, formatDate(result) != nil else {
                     return false
                 }
             }
@@ -54,13 +54,13 @@ let devourVideoValidator = JSONValidator<[DevourVideo]> { (json) -> Bool in
 
 struct DevourVideoParser: JSONParserType {
     
-    func parseJSON(jsonData: JSON) -> [DevourVideo] {
+    func parseJSON(_ jsonData: JSON) -> [DevourVideo] {
         
         var devourVideos = [DevourVideo]()
         
         // Parse the json
         do {
-            let json = try NSJSONSerialization.JSONObjectWithData(jsonData.data, options: []) as! NSDictionary
+            let json = try JSONSerialization.jsonObject(with: jsonData.data as Data, options: []) as! NSDictionary
             
             if let results = json["posts"] as? [AnyObject] {
                 for result in results {
@@ -69,8 +69,8 @@ struct DevourVideoParser: JSONParserType {
                     let authored_on = formatDate(result["authored_on"] as! String)!
                     let title = result["title"] as! String
                     let summary = result["summary"] as! String
-                    let thumbnail = NSURL(string: result["thumbnail"] as! String)!
-                    let url = NSURL(string: result["url"] as! String)!
+                    let thumbnail = URL(string: result["thumbnail"] as! String)!
+                    let url = URL(string: result["url"] as! String)!
                     let video_id = result["video_id"] as! String
                     let video_source = result["video_source"] as! String
                     
@@ -78,11 +78,11 @@ struct DevourVideoParser: JSONParserType {
                     
                     switch video_source {
                     case "youtube":
-                        videoSource = .YouTube
+                        videoSource = .youTube
                     case "vimeo":
-                        videoSource = .Vimeo
+                        videoSource = .vimeo
                     default:
-                        videoSource = .Other
+                        videoSource = .other
                     }
                     
                     let devourVideo = DevourVideo(id: id, date: authored_on, title: title, summary: summary, thumbnailURL: thumbnail, URL: url, videoID: video_id, videoSource: videoSource)
@@ -99,10 +99,10 @@ struct DevourVideoParser: JSONParserType {
     }
 }
 
-private func formatDate(dateString: String) -> NSDate? {
-    let dateFormatter = NSDateFormatter()
+private func formatDate(_ dateString: String) -> Date? {
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat =  "yyyy-MM-dd'T'HH:mm:ssZ"
-    if let date = dateFormatter.dateFromString(dateString) {
+    if let date = dateFormatter.date(from: dateString) {
         return date
     }
     return nil

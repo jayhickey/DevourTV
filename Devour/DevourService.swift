@@ -8,24 +8,26 @@
 
 import Foundation
 
+typealias DevourResource = (Int, @escaping (Data?, Error?) -> Void) -> Void
+
 // MARK: Public
 
-public func fetchDevourVideos(type: DevourVideoType, page: Int, completion: [DevourVideo] -> Void) {
-    let service = DevourAPIService(URLSession: NSURLSession.sharedSession())
+public func fetchDevourVideos(type: DevourVideoType, page: Int, completion: @escaping ([DevourVideo]) -> Void) {
+    let service = DevourAPIService(URLSession: URLSession.shared)
     
     switch type {
     case .Latest:
-        fetchDevourVideos(service.fetchLatestDevourJSON, page: page, completion: completion);
+        fetchDevourVideos(resource: service.latestResource, page: page, completion: completion);
     case .Popular:
-        fetchDevourVideos(service.fetchPopularDevourJSON, page: page, completion: completion);
+        fetchDevourVideos(resource: service.popularResource, page: page, completion: completion);
     }
     
 }
 
 // MARK: Private
 
-private func fetchDevourVideos(service: ((Int, (NSData?, NSError?) -> Void) -> Void), page: Int, completion: [DevourVideo] -> Void) -> Void {
-    service(page) { data, error in
+private func fetchDevourVideos(resource: DevourResource, page: Int, completion: @escaping ([DevourVideo]) -> Void) -> Void {
+    resource(page) { data, error in
         if let data = data {
             let devourVideo = devourVideoFromData(data)
             completion(devourVideo)
@@ -35,13 +37,12 @@ private func fetchDevourVideos(service: ((Int, (NSData?, NSError?) -> Void) -> V
     }
 }
 
-private func devourVideoFromData(data: NSData) -> [DevourVideo] {
+private func devourVideoFromData(_ data: Data) -> [DevourVideo] {
     
     // Attempt to validate and parse JSON from NSData
     let json = JSON(data: data)
     let parser = DevourVideoParser()
     if let videos = parse(json, validator: devourVideoValidator, parser: parser) {
-        // success
         return videos
     }
     

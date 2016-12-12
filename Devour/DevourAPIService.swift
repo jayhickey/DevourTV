@@ -10,33 +10,34 @@ import Foundation
 
 class DevourAPIService {
     
-    let URLSession: NSURLSession
+    let URLSession: URLSession
     let baseURL = "http://uncrate.com/tv/api"
     
-    init(URLSession: NSURLSession) {
+    init(URLSession: URLSession) {
         self.URLSession = URLSession
     }
     
     // MARK: Public
     
-    func fetchLatestDevourJSON(page: Int, completion: (NSData?, NSError?) -> Void) {
+    func latestResource(page: Int, completion: @escaping (Data?, Error?) -> Void) {
         let urlPath = "\(baseURL)/latestpage\(page).json"
-        fetchURL(urlPath, completion: completion)
+        fetchURL(urlString: urlPath, completion: completion)
     }
     
-    func fetchPopularDevourJSON(page: Int, completion: (NSData?, NSError?) -> Void) {
+    func popularResource(page: Int, completion: @escaping (Data?, Error?) -> Void) {
         let urlPath = "\(baseURL)/popularpage\(page).json"
-        fetchURL(urlPath, completion: completion)
+        fetchURL(urlString: urlPath, completion: completion)
     }
     
     // MARK: Private
     
-    private func fetchURL(urlString: String, completion: (NSData?, NSError?) -> Void) {
-        if let endpoint = NSURL(string: urlString) {
-            let request = NSURLRequest(URL:endpoint)
-            self.URLSession.dataTaskWithRequest(request) { (data, response, error) -> Void in
+    fileprivate func fetchURL(urlString: String, completion: @escaping (Data?, Error?) -> ()) {
+        if let endpoint = URL(string: urlString) {
+            let request = URLRequest(url: endpoint)
+            self.URLSession.dataTask(with: request, completionHandler: { (data, response, error) in
                 completion(data, error)
-                }.resume()
+                return
+            }).resume()
         } else {
             completion(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL, userInfo: nil))
         }
