@@ -34,14 +34,14 @@ class DevourCollectionViewController: UICollectionViewController, UICollectionVi
         playVideo(video)
     }
     
-    func reload() {
+    func reloadData() {
         _ = emitters.map { $0.reset(); $0.getVideos() }
     }
     
     // MARK: Private
     
     @IBAction fileprivate func reload(_ sender: UIButton!) {
-        reload()
+        reloadData()
     }
 
     fileprivate func playVideo(_ video: Video) {
