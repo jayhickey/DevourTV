@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4C23474A098B42F5FF0315D2F87F5004BAC938B8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4C23474A098B42F5FF0315D2F87F5004BAC938B8" : 9223372036854775807,
+    "19EAE2FF9FBDDBBF09EFE9AC77CD6E6E275FB0D8" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C2254A58-0B8A-4ED2-8DB3-7EBDA8F26602",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4C23474A098B42F5FF0315D2F87F5004BAC938B8" : "DevourTV\/",
+    "19EAE2FF9FBDDBBF09EFE9AC77CD6E6E275FB0D8" : "DevourTV\/HCYoutubeParser\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Devour",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Devour.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/hellozimi\/HCYoutubeParser.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "19EAE2FF9FBDDBBF09EFE9AC77CD6E6E275FB0D8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jayhickey\/DevourTV.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4C23474A098B42F5FF0315D2F87F5004BAC938B8"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+[submodule "HCYoutubeParser"]
+	path = HCYoutubeParser
+	url = https://github.com/hellozimi/HCYoutubeParser.git

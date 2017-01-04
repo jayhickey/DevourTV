@@ -15,8 +15,8 @@
 		E529EACB1D655B4C00680732 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529EACA1D655B4C00680732 /* VideoCollectionViewCell.swift */; };
 		E529EACD1D656C0E00680732 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529EACC1D656C0E00680732 /* ImageCache.swift */; };
 		E58381421D5FFD0500444FDC /* UIViewController+VideoExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58381411D5FFD0500444FDC /* UIViewController+VideoExtensions.swift */; };
+		E58AE4E31E1C82D200FE3084 /* HCYoutubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E58AE4E21E1C82D200FE3084 /* HCYoutubeParser.m */; };
 		E5AC77111D6004F400FF774F /* YouTubeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AC77101D6004F400FF774F /* YouTubeParser.swift */; };
-		E5DCD2001D5FD1E00011391A /* HCYoutubeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DCD1FF1D5FD1E00011391A /* HCYoutubeParser.m */; };
 		E5DCD2031D5FDA130011391A /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DCD2021D5FDA130011391A /* VideoViewController.swift */; };
 		E5E786BD1D5F9144006A8AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E786BC1D5F9144006A8AF3 /* AppDelegate.swift */; };
 		E5E786BF1D5F9144006A8AF3 /* DevourCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E786BE1D5F9144006A8AF3 /* DevourCollectionViewController.swift */; };
@@ -37,10 +37,10 @@
 		E529EACA1D655B4C00680732 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		E529EACC1D656C0E00680732 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		E58381411D5FFD0500444FDC /* UIViewController+VideoExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+VideoExtensions.swift"; sourceTree = "<group>"; };
+		E58AE4E11E1C82D200FE3084 /* HCYoutubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HCYoutubeParser.h; path = HCYoutubeParser/YoutubeParser/Classes/HCYoutubeParser.h; sourceTree = SOURCE_ROOT; };
+		E58AE4E21E1C82D200FE3084 /* HCYoutubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HCYoutubeParser.m; path = HCYoutubeParser/YoutubeParser/Classes/HCYoutubeParser.m; sourceTree = SOURCE_ROOT; };
 		E5AC77101D6004F400FF774F /* YouTubeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubeParser.swift; sourceTree = "<group>"; };
 		E5DCD1FD1D5FD1DF0011391A /* Devour-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Devour-Bridging-Header.h"; sourceTree = "<group>"; };
-		E5DCD1FE1D5FD1E00011391A /* HCYoutubeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCYoutubeParser.h; sourceTree = "<group>"; };
-		E5DCD1FF1D5FD1E00011391A /* HCYoutubeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCYoutubeParser.m; sourceTree = "<group>"; };
 		E5DCD2021D5FDA130011391A /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		E5E786B91D5F9144006A8AF3 /* Devour.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Devour.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E786BC1D5F9144006A8AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,8 +91,8 @@
 			children = (
 				E5AC77101D6004F400FF774F /* YouTubeParser.swift */,
 				E5DCD1FD1D5FD1DF0011391A /* Devour-Bridging-Header.h */,
-				E5DCD1FE1D5FD1E00011391A /* HCYoutubeParser.h */,
-				E5DCD1FF1D5FD1E00011391A /* HCYoutubeParser.m */,
+				E58AE4E11E1C82D200FE3084 /* HCYoutubeParser.h */,
+				E58AE4E21E1C82D200FE3084 /* HCYoutubeParser.m */,
 			);
 			name = "Youtube Parser";
 			sourceTree = "<group>";
@@ -226,10 +226,10 @@
 				E5E786D21D5F987A006A8AF3 /* JSONParsing.swift in Sources */,
 				E529EAC61D65578800680732 /* Video.swift in Sources */,
 				E5E786D01D5F97C3006A8AF3 /* DevourVideo.swift in Sources */,
-				E5DCD2001D5FD1E00011391A /* HCYoutubeParser.m in Sources */,
 				E523B9751D5F9E7900FF0444 /* DevourService.swift in Sources */,
 				E5E786CE1D5F91CC006A8AF3 /* DevourAPIService.swift in Sources */,
 				E529EAC81D65589E00680732 /* DevourVideoSetEmitter.swift in Sources */,
+				E58AE4E31E1C82D200FE3084 /* HCYoutubeParser.m in Sources */,
 				E5E786BD1D5F9144006A8AF3 /* AppDelegate.swift in Sources */,
 				E5E786BF1D5F9144006A8AF3 /* DevourCollectionViewController.swift in Sources */,
 				E529EACD1D656C0E00680732 /* ImageCache.swift in Sources */,
@@ -351,6 +351,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Devour/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jayhickey.Devour;
@@ -370,6 +371,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Devour/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jayhickey.Devour;
