@@ -25,7 +25,7 @@ class VideoViewController: AVPlayerViewController, AVPlayerViewControllerDelegat
         player?.play()
     }
     
-    func playerDidFinishPlaying(_ note: Notification) {
+    @objc func playerDidFinishPlaying(_ note: Notification) {
         self.dismiss(animated: true, completion: nil)
     }
 

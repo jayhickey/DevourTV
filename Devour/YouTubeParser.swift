@@ -14,7 +14,7 @@ public enum VideoQuality: Int {
 }
 
 public struct YouTubeVideo {
-    let URL           : Foundation.URL
+    let URL           : URL
     let quality       : VideoQuality
     let qualityString : String
 }

@@ -42,7 +42,4 @@ class DevourAPIService {
             completion(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL, userInfo: nil))
         }
     }
-    
-
-
 }

@@ -27,7 +27,7 @@ class DevourCollectionViewController: UICollectionViewController, UICollectionVi
         
         emitters = [latestEmitter, popularEmitter]
         
-        _ = emitters.map { $0.getVideos() }
+        reloadData()
     }
     
     func videoSelected(_ video: Video) {

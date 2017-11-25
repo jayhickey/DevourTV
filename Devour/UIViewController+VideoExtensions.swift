@@ -14,7 +14,7 @@ public extension UIViewController {
         self.present(VideoViewController(url: url), animated: true, completion: nil)
     }
     
-    func videoQualityAlertController(_ options: [String], success: @escaping ((String) -> Void), cancel: @escaping ((Void) -> Void)) -> UIAlertController {
+    func videoQualityAlertController(_ options: [String], success: @escaping ((String) -> Void), cancel: @escaping (() -> Void)) -> UIAlertController {
         let alertController = UIAlertController(title: "Choose Quality", message: nil, preferredStyle: .alert)
         
         for option in options {
